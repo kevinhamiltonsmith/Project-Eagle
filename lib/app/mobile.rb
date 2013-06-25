@@ -3,7 +3,7 @@ require 'json'
 require 'apns'
 require 'xmlsimple'
 require 'date'
-require 'lib/api/fore.rb'
+require './lib/api/fore.rb'
 
 class MobileApp
   
@@ -20,8 +20,8 @@ class MobileApp
       params[:date_selected] = false
     end
     
-    @timenow            = Time.now 
-    @time               = params[:time]
+    @timenow            = Time.now
+    @time               = params[:time].empty? ? Time.now.to_s : params[:time]
     @time12             = Time.parse(@time).strftime("%I:%M")
     @ampm               = Time.parse(@time).strftime("%p")
     @golfers            = params[:golfers]

@@ -138,7 +138,7 @@ module Fore
       begin
         response = http.get(query, headers)
         dat = response.body.gsub("\n","").split("<avail>")[1]
-        if dat.index("teetime").nil?:
+        if dat.index("teetime").nil?
   				response = ""
 				else
 				  response = "<avail date='#{day.strftime("%Y-%m-%d")}'>"+dat

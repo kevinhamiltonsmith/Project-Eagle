@@ -3,8 +3,8 @@ require 'json'
 require 'apns'
 require 'xmlsimple'
 require 'date'
-require 'lib/api/fore.rb'
-require 'lib/app/mobile.rb'
+require './lib/api/fore.rb'
+require './lib/app/mobile.rb'
 
 # This is the controller for the mobile web app version that allows tee time bookings
 # Below is the expected format for paramters received from all client devices
