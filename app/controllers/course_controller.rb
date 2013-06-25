@@ -3,7 +3,7 @@ require 'json'
 require 'apns'
 require 'xmlsimple'
 require 'date'
-require 'lib/api/fore.rb'
+require './lib/api/fore.rb'
 
 class CourseController < ApplicationController
   skip_before_filter :verify_authenticity_token 

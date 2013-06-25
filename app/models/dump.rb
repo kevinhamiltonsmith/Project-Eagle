@@ -3,7 +3,7 @@ require 'json'
 require 'apns'
 require 'xmlsimple'
 require 'date'
-require 'lib/api/fore.rb'
+require './lib/api/fore.rb'
 require "net/http"
 require "net/https"
 
