@@ -22,6 +22,8 @@ gem "subdomain_routes"
 gem "apn_on_rails", "~> 0.4.2"
 gem "apns", "~> 0.9.0"
 gem 'sendgrid'
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+
 
 # Use unicorn as the web server
 # gem 'unicorn'

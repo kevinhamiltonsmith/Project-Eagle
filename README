@@ -2,6 +2,7 @@
 = GETTING STARTED =====================================
 =======================================================
 
+0. Create an environment variable, STRIPE_KEY.
 1. Launch local server > script/server 
 2. In your browser, go to http://localhost:3000?course_id=1 (landing page for given course id)
 3. In your browser go to http://localhost:3000/booking?course_id=2 (booking page)  

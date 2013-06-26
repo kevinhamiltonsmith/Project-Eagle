@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/stripe/stripe-ruby
+  revision: 2dbc700fc35c9f6191e274febcd283223fce7d9a
+  specs:
+    stripe (1.8.3)
+      multi_json (>= 1.0.4, < 2)
+      rest-client (~> 1.4)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -52,6 +60,8 @@ GEM
       activesupport (= 2.3.5)
       rake (>= 0.8.3)
     rake (0.9.2.2)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     sendgrid (1.0.1)
       json
       json
@@ -90,6 +100,7 @@ DEPENDENCIES
   rails (~> 2.3.5)
   sendgrid
   sqlite3-ruby
+  stripe!
   subdomain_routes
   twilio-ruby
   twiliolib (~> 2.0.7)
