@@ -50,5 +50,5 @@ ActionController::Routing::Routes.draw do |map|
   
 
   #STRIPE routes
-  resources :charges
+  map.resources :charges
 end

@@ -3,5 +3,4 @@
 #   :secret_key      => ENV['secret']
 # }
 
-puts ENV['STRIPE_KEY']
 Stripe.api_key = ENV['STRIPE_KEY']
