@@ -1,4 +1,4 @@
-<% form_tag charges_path do %>
+<form action='http://localhost:3000/charges' method='POST'>
 	<%= label_tag 'name', 'Name: ' %><%= text_field_tag :name %>
      <%= label_tag 'email', 'Email: ' %><%= text_field_tag :email %>
      <%= label_tag 'message', 'Message: ' %><%= text_area_tag :message %>
@@ -13,4 +13,4 @@
           data-key="pk_test_2yvhQN0YU3zvKbzifhyDwNnl"
           data-description="A month's subscription"
           data-amount="500"></script>
-<% end %>
+</form>
