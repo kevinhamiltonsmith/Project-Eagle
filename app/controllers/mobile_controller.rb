@@ -73,6 +73,7 @@ class MobileController < ApplicationController
   # Users can see general course info, and the primary call to action here is to 'Book Tee Time'
   # 'Book Tee Time' routes user to /booking view page
   def index
+    @app.user
   end
   
   def time
