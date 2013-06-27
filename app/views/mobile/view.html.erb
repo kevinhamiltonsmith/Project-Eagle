@@ -28,6 +28,32 @@
 			
 			<% @code = @app.reservation.confirmation_code %>
 			<center><a href="javascript:cancelTime('<%= @code %>');" class='cancel_button' style='margin-top:10px;border-radius:6px;'>Cancel Reservation</a></center>
+  <script src="https://checkout.stripe.com/v2/checkout.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+
+			<center><button id="customButton">Purchase Online</button></center>
+
+  <script>
+    $('#customButton').click(function(){
+      var token = function(res){
+        var $input = $('<input type=hidden name=stripeToken />').val(res.id);
+        $('form').append($input).submit();
+      };
+
+      StripeCheckout.open({
+        key:         'pk_test_2yvhQN0YU3zvKbzifhyDwNnl',
+        address:     true,
+        amount:      <%=@app.reservation.total%>00,
+        currency:    'usd',
+        name:        '<%=@app.user.f_name%> <%=@app.user.l_name%>',
+        description: 'A bag of Pistachios',
+        panelLabel:  'Checkout',
+        token:       token
+      });
+
+      return false;
+    });
+  </script>
 		</div>
  </div>	
 
