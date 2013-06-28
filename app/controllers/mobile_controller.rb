@@ -73,7 +73,14 @@ class MobileController < ApplicationController
   # Users can see general course info, and the primary call to action here is to 'Book Tee Time'
   # 'Book Tee Time' routes user to /booking view page
   def index
-    @app.user
+  end
+
+  def view
+    @email = "test this sht"
+    puts "-------------------------VIEW-------------------------" 
+    puts @app.user.email
+    puts @email
+    puts "-------------------------END-VIEW-------------------------" 
   end
   
   def time
@@ -81,6 +88,12 @@ class MobileController < ApplicationController
   end  
   
   def book
+  end
+
+  def charges
+        puts "-------------------------CHARGES-------------------------" 
+
+    @app.user
   end
   
   def more_days

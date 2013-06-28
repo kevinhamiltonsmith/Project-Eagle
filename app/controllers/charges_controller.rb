@@ -7,10 +7,10 @@ class ChargesController < ApplicationController
     # Amount in cents
     Stripe.api_key = 'sk_test_WJKjg9zfVpCrB5vTryRfb9Jf'
 
-    @amount = 500
+    @amount = params[:amount]
 
     customer = Stripe::Customer.create(
-      :email => 'example@stripe.com',
+      :email => params[:email],
       :card  => params[:stripeToken]
     )
 

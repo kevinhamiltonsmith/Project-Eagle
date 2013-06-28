@@ -12,77 +12,58 @@
         </div>
 
         <div style='margin-top:3px;border-top:1px solid gray;font-weight:normal;font-size:14px;padding-top:4px'>
-          <b style='color:green'>Booking #</b>: <%=@app.reservation.confirmation_code[0..20]%>
+          <b style='color:green'>Booking #</b>: <%= @app.reservation.confirmation_code[0..20] %>
         </div>
       </div>
       
       <div style='clear:both;height:0px'></div>
       
       <div style='margin-top:5px'>
-        <strong>Name: </strong> <%=@app.user.f_name%> <%=@app.user.l_name%> <br>
-        <strong>Date: </strong><%=@app.reservation.date.to_date.strftime("%A, %B %e")%><br>
-        <strong>Tee Time: </strong><%=Time.parse(@app.reservation.time).strftime("%I:%M %p")%><br>  
-        <strong>Number of Golfers: </strong><%=@app.reservation.golfers%><br>
-        <strong>Total Due at Course: </strong>$<%=@app.reservation.total%>.00
+        <strong>Name: </strong> <%= @app.user.f_name%> <%= @app.user.l_name %> <br>
+        <strong>Date: </strong><%= @app.reservation.date.to_date.strftime("%A, %B %e") %><br>
+        <strong>Tee Time: </strong><%= Time.parse(@app.reservation.time).strftime("%I:%M %p") %><br>  
+        <strong>Number of Golfers: </strong><%= @app.reservation.golfers %><br>
+        <strong>Total Due at Course: </strong>$<%= @app.reservation.total %>.00
       </div>
       
       <% @code = @app.reservation.confirmation_code %>
 <!-- CHECK DB TO SEE IF A USER HAS ALREADY PAID FOR THIS WEEKS RANGE.
      IF NONE FOUND, DISPLAY THE CONTENTS BELOW FOR THE PAY BUTTON AND THE SCRIPT NECESSARY TO RUN
 
+     IF CURRENTLY LOGGED-IN PERSON WANTS TO CANCEL THERE IS NO OPTION TO CANCEL JUST YET
+
      START HERE **********  -->
-<!-- 
-     <form action="" method="POST">
-      <script>
-        $('#customButton').click(function(){
-          var token = function(res){
-            var $input = $('<input type=hidden name=stripeToken />').val(res.id);
-            $('form#strip').append($input).submit();
-          };
 
-          StripeCheckout.open({
-            key:         'pk_test_2yvhQN0YU3zvKbzifhyDwNnl',
-            address:     true,
-            amount:      <%=@app.reservation.total%>00,
-            currency:    'usd',
-            name:        '<%=@app.user.f_name%> <%=@app.user.l_name%>',
-            description: 'A bag of Pistachios',
-            panelLabel:  'Checkout',
-            token:       token
-          });
-
-          return false;
-        });
-      </script>
-    </form> -->
-<form action="http://localhost:3000/charges/new" method="POST" id="payment-form">
-  <span class="payment-errors"></span>
-
-  <div class="form-row">
-    <label>
-      <span>Card Number</span>
-      <input type="text" size="20" data-stripe="number"/>
-    </label>
-  </div>
-
-  <div class="form-row">
-    <label>
-      <span>CVC</span>
-      <input type="text" size="4" data-stripe="cvc"/>
-    </label>
-  </div>
-
-  <div class="form-row">
-    <label>
-      <span>Expiration (MM/YYYY)</span>
-      <input type="text" size="2" data-stripe="exp-month"/>
-    </label>
-    <span> / </span>
-    <input type="text" size="4" data-stripe="exp-year"/>
-  </div>
-
-  <button type="submit">Submit Payment</button>
+<form action="/charges" method="post">
+  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+          data-key="pk_test_2yvhQN0YU3zvKbzifhyDwNnl"></script>
 </form>
+
+<script>
+  var pay = function(){
+
+    var token = function(res){
+      var $input = $('<input type=hidden name=stripeToken />').val(res.id);
+      var $input2 = $('<input type=hidden name=amount />').val(<%= @app.reservation.total %>00);
+      var $input3 = $('<input type=hidden name=email />').val('<%= @app.user.email %>');
+      $('form').append($input).append($input2).append($input3).submit();
+    };
+
+    StripeCheckout.open({
+      key:         'pk_test_2yvhQN0YU3zvKbzifhyDwNnl',
+      address:     false,
+      amount:      <%= @app.reservation.total %>00,
+      currency:    'usd',
+      name:        '<%= @app.user.f_name%> <%= @app.user.l_name %>',
+      description: 'Golf for <%= @app.reservation.golfers%>, <%= @app.reservation.date.to_date.strftime("%A, %B %e") %> <%=Time.parse(@app.reservation.time).strftime("%I:%M %p") %>',
+      panelLabel:  'Checkout',
+      token:       token
+    });
+
+    return false;
+  };
+</script>
+      <center><a href="javascript:pay()" class='pay_button'>Purchase Online</a></center>
       <!-- END IF STATEMENT ************* -->
 
       <center><a href="javascript:cancelTime('<%= @code %>');" class='cancel_button' style='margin-top:10px;border-radius:6px;'>Cancel Reservation</a></center>

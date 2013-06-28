@@ -274,28 +274,6 @@
 				});
 		}
 
-
-		function payNow(amount) {
-		  console.log("Something!");
-		  var token = function(res){
-            var $input = $('<input type=hidden name=stripeToken />').val(res.id);
-            $('form#strip').append($input).submit();
-          };
-
-          StripeCheckout.open({
-            key:         'pk_test_2yvhQN0YU3zvKbzifhyDwNnl',
-            address:     true,
-            amount:      amount,
-            currency:    'usd',
-            name:        '<%= @app.user.f_name %> <%= @app.user.l_name %>',
-            description: 'A bag of Pistachios',
-            panelLabel:  'Checkout',
-            token:       token
-          });
-
-          return false;
-		}
-	
 		//This method cancels a tee time reservation
 		//After canceling the reservation takes the user to the reservations page
 		function cancelTime(confirmation_code){

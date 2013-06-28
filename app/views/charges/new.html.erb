@@ -1,4 +1,4 @@
-<form action='http://localhost:3000/charges' method='POST'>
+<form action="http://localhost:3000/charges" method='POST'>
 	<%= label_tag 'name', 'Name: ' %><%= text_field_tag :name %>
      <%= label_tag 'email', 'Email: ' %><%= text_field_tag :email %>
      <%= label_tag 'message', 'Message: ' %><%= text_area_tag :message %>
@@ -8,9 +8,31 @@
       <span>Amount: $5.00</span>
     </label>
   </article>
-
-  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-          data-key="pk_test_2yvhQN0YU3zvKbzifhyDwNnl"
-          data-description="A month's subscription"
-          data-amount="500"></script>
 </form>
+
+
+      <script src="https://checkout.stripe.com/v2/checkout.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+
+      <script>
+        $('#customButton').click(function(){
+          var token = function(res){
+            var $input = $('<input type=hidden name=stripeToken />').val(res.id);
+            $('form').append($input).submit();
+          };
+
+          StripeCheckout.open({
+            key:         'pk_test_2yvhQN0YU3zvKbzifhyDwNnl',
+            address:     true,
+            amount:      10000,
+            currency:    'usd',
+            name:        'asdad',
+            description: 'A bag of Pistachios',
+            panelLabel:  'Checkout',
+            token:       token
+          });
+
+          return false;
+        });
+      </script>
+      <center><a href="#" id="customButton" class='pay_button'>Purchase Online</a></center>

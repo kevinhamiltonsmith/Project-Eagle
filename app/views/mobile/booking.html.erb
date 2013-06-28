@@ -234,7 +234,7 @@
 				$('#contact_value').attr("placeholder","Phone Number");
 			}	
 		}
-
+		
 		function cancelRes(){
 			$.get("/device_communication/cancel_reservation",{"course_id":app.course_id,"confirmation_code":$('span#confirm_waiting').html()},function(data){
 				alert("Reservation Cancelled");	
