@@ -76,11 +76,6 @@ class MobileController < ApplicationController
   end
 
   def view
-    @email = "test this sht"
-    puts "-------------------------VIEW-------------------------" 
-    puts @app.user.email
-    puts @email
-    puts "-------------------------END-VIEW-------------------------" 
   end
   
   def time

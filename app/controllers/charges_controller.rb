@@ -7,6 +7,7 @@ class ChargesController < ApplicationController
     # Amount in cents
     Stripe.api_key = 'sk_test_WJKjg9zfVpCrB5vTryRfb9Jf'
 
+    @resId = params[:resId]
     @amount = params[:amount]
 
     customer = Stripe::Customer.create(
@@ -21,8 +22,14 @@ class ChargesController < ApplicationController
       :currency    => 'usd'
     )
 
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to charges_path
+    @reservation = Reservation.find_by_id(@resId)
+    if(!@reservation.blank?)
+      @reservation.total = 'PAID'
+      @reservation.save
+    end
+
+    rescue Stripe::CardError => e
+      flash[:error] = e.message
+      redirect_to charges_path
   end
 end

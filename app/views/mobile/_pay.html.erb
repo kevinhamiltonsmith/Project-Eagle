@@ -1,0 +1,31 @@
+<form action="/charges" method="post">
+  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+          data-key="pk_test_2yvhQN0YU3zvKbzifhyDwNnl"></script>
+</form>
+
+<script>
+  var pay = function(){
+
+    var token = function(res){
+      var $input = $('<input type=hidden name=stripeToken />').val(res.id);
+      var $input2 = $('<input type=hidden name=amount />').val(<%= @app.reservation.total %>00);
+      var $input3 = $('<input type=hidden name=email />').val('<%= @app.user.email %>');
+      var $input4 = $('<input type=hidden name=resId />').val(<%= @app.reservation.id %>);
+      $('form').append($input).append($input2).append($input3).append($input4).submit();
+    };
+
+    StripeCheckout.open({
+      key:         'pk_test_2yvhQN0YU3zvKbzifhyDwNnl',
+      address:     false,
+      amount:      <%= @app.reservation.total %>00,
+      currency:    'usd',
+      name:        '<%= @app.user.f_name%> <%= @app.user.l_name %>',
+      description: 'Golf for <%= @app.reservation.golfers%>, <%= @app.reservation.date.to_date.strftime("%A, %B %e") %> <%=Time.parse(@app.reservation.time).strftime("%I:%M %p") %>',
+      panelLabel:  'Checkout',
+      token:       token
+    });
+
+    return false;
+  };
+</script>
+      <center><a href="javascript:pay()" class='pay_button'>Purchase Online</a></center>

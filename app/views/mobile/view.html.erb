@@ -23,48 +23,12 @@
         <strong>Date: </strong><%= @app.reservation.date.to_date.strftime("%A, %B %e") %><br>
         <strong>Tee Time: </strong><%= Time.parse(@app.reservation.time).strftime("%I:%M %p") %><br>  
         <strong>Number of Golfers: </strong><%= @app.reservation.golfers %><br>
-        <strong>Total Due at Course: </strong>$<%= @app.reservation.total %>.00
+        <strong>Total Due at Course: </strong><%= @app.reservation.total %>
       </div>
       
       <% @code = @app.reservation.confirmation_code %>
-<!-- CHECK DB TO SEE IF A USER HAS ALREADY PAID FOR THIS WEEKS RANGE.
-     IF NONE FOUND, DISPLAY THE CONTENTS BELOW FOR THE PAY BUTTON AND THE SCRIPT NECESSARY TO RUN
 
-     IF CURRENTLY LOGGED-IN PERSON WANTS TO CANCEL THERE IS NO OPTION TO CANCEL JUST YET
-
-     START HERE **********  -->
-
-<form action="/charges" method="post">
-  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-          data-key="pk_test_2yvhQN0YU3zvKbzifhyDwNnl"></script>
-</form>
-
-<script>
-  var pay = function(){
-
-    var token = function(res){
-      var $input = $('<input type=hidden name=stripeToken />').val(res.id);
-      var $input2 = $('<input type=hidden name=amount />').val(<%= @app.reservation.total %>00);
-      var $input3 = $('<input type=hidden name=email />').val('<%= @app.user.email %>');
-      $('form').append($input).append($input2).append($input3).submit();
-    };
-
-    StripeCheckout.open({
-      key:         'pk_test_2yvhQN0YU3zvKbzifhyDwNnl',
-      address:     false,
-      amount:      <%= @app.reservation.total %>00,
-      currency:    'usd',
-      name:        '<%= @app.user.f_name%> <%= @app.user.l_name %>',
-      description: 'Golf for <%= @app.reservation.golfers%>, <%= @app.reservation.date.to_date.strftime("%A, %B %e") %> <%=Time.parse(@app.reservation.time).strftime("%I:%M %p") %>',
-      panelLabel:  'Checkout',
-      token:       token
-    });
-
-    return false;
-  };
-</script>
-      <center><a href="javascript:pay()" class='pay_button'>Purchase Online</a></center>
-      <!-- END IF STATEMENT ************* -->
+      <%= render :partial => "pay", :locals => { :app => @app } if @app.reservation.total != "PAID" %>
 
       <center><a href="javascript:cancelTime('<%= @code %>');" class='cancel_button' style='margin-top:10px;border-radius:6px;'>Cancel Reservation</a></center>
 
