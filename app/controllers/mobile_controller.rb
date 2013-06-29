@@ -76,6 +76,18 @@ class MobileController < ApplicationController
   end
 
   def view
+    reservation = Reservation.find(:all, 
+    :conditions => { 
+      :date => "2013-06-28".."2013-07-05",
+      :total => "PAID"
+    })
+    
+    if reservation.empty?
+      @render_reservation = 0
+    else
+      @render_reservation = 1
+    end
+        puts "-------------------------#{@render_reservation}-------------------------" 
   end
   
   def time

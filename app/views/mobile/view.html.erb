@@ -28,7 +28,7 @@
       
       <% @code = @app.reservation.confirmation_code %>
 
-      <%= render :partial => "pay", :locals => { :app => @app } if @app.reservation.total != "PAID" %>
+      <%= render :partial => "pay", :locals => { :app => @app } if (@app.reservation.total != "PAID" && @render_reservation !=1 && @app.reservation.total != 0) %>
 
       <center><a href="javascript:cancelTime('<%= @code %>');" class='cancel_button' style='margin-top:10px;border-radius:6px;'>Cancel Reservation</a></center>
 
