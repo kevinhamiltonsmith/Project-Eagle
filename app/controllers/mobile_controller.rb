@@ -76,9 +76,31 @@ class MobileController < ApplicationController
   end
 
   def view
+    require 'date'
+
+    def date_of_next(day)
+      date  = Date.parse(day)
+      delta = date > Date.today ? 0 : 7
+      date + delta
+    end
+
+    def date_of_last(day)
+      date  = Date.parse(day)
+      delta = date > Date.today ? 0 : 7
+      date + delta - 7
+    end
+
+    future_date = date_of_next "Friday"
+
+    if (Date.today != "Friday")
+      past_date = date_of_last "Friday"
+    else
+      future_date = Date.today
+    end
+
     reservation = Reservation.find(:all, 
     :conditions => { 
-      :date => "2013-06-28".."2013-07-05",
+      :date => past_date..future_date,
       :total => "PAID"
     })
     
@@ -87,7 +109,11 @@ class MobileController < ApplicationController
     else
       @render_reservation = 1
     end
-        puts "-------------------------#{@render_reservation}-------------------------" 
+
+
+        puts "-------------------------#{Date.today}-------------------------" 
+        puts "-------------------------#{past_date}-------------------------" 
+        puts "-------------------------#{future_date}-------------------------" 
   end
   
   def time

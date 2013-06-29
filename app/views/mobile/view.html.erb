@@ -23,7 +23,14 @@
         <strong>Date: </strong><%= @app.reservation.date.to_date.strftime("%A, %B %e") %><br>
         <strong>Tee Time: </strong><%= Time.parse(@app.reservation.time).strftime("%I:%M %p") %><br>  
         <strong>Number of Golfers: </strong><%= @app.reservation.golfers %><br>
-        <strong>Total Due at Course: </strong><%= @app.reservation.total %>
+        <strong>Total Due at Course: </strong>
+        <%=
+          if (@app.reservation.total != 0 && @app.reservation.total != "PAID")
+            "$#{@app.reservation.total}.00"
+          else
+            @app.reservation.total
+          end
+        %>
       </div>
       
       <% @code = @app.reservation.confirmation_code %>
