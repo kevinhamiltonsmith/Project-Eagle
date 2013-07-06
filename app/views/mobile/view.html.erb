@@ -23,19 +23,16 @@
         <strong>Date: </strong><%= @app.reservation.date.to_date.strftime("%A, %B %e") %><br>
         <strong>Tee Time: </strong><%= Time.parse(@app.reservation.time).strftime("%I:%M %p") %><br>  
         <strong>Number of Golfers: </strong><%= @app.reservation.golfers %><br>
-        <strong>Total Due at Course: </strong>
-        <%=
-          if (@app.reservation.total != 0 && @app.reservation.total != "PAID")
-            "$#{@app.reservation.total}.00"
-          else
-            @app.reservation.total
-          end
-        %>
+        <strong>Total Due at Course: </strong>$<%= @app.reservation.total %>.00 <%= @paid %>
       </div>
       
       <% @code = @app.reservation.confirmation_code %>
 
-      <%= render :partial => "pay", :locals => { :app => @app } if (@app.reservation.total != "PAID" && @render_reservation !=1 && @app.reservation.total != 0) %>
+      <%=
+      # "@render_reservation < 1"; change number from 1 to n+1, where n is he number of reservations per week you would like to permit plus one in the code below
+      
+      render :partial => "pay", :locals => { :app => @app } if (@app.reservation.paid != "p" && @render_reservation < 1 && @app.reservation.total != 0) 
+      %>
 
       <center><a href="javascript:cancelTime('<%= @code %>');" class='cancel_button' style='margin-top:10px;border-radius:6px;'>Cancel Reservation</a></center>
 

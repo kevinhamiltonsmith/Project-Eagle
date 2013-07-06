@@ -90,30 +90,30 @@ class MobileController < ApplicationController
       date + delta - 7
     end
 
-    future_date = date_of_next "Friday"
+    future_date = date_of_next "Saturday"
 
-    if (Date.today != "Friday")
-      past_date = date_of_last "Friday"
+    if (Date.today != "Saturday")
+      past_date = date_of_last "Saturday"
     else
       future_date = Date.today
     end
 
-    reservation = Reservation.find(:all, 
-    :conditions => { 
+    reservations = Reservation.find(:all, :conditions => {
       :date => past_date..future_date,
-      :total => "PAID"
+      :paid => "p"
     })
     
-    if reservation.empty?
-      @render_reservation = 0
+    @render_reservation = reservations.length
+
+    reservation = Reservation.find(:all, :conditions => { :id => params[:view] })
+
+    if reservation[0].paid == "p"
+      @paid = "paid"
     else
-      @render_reservation = 1
+      @paid = ""
     end
+            puts "-------------------------#{reservations[0]}-------------------------" 
 
-
-        puts "-------------------------#{Date.today}-------------------------" 
-        puts "-------------------------#{past_date}-------------------------" 
-        puts "-------------------------#{future_date}-------------------------" 
   end
   
   def time

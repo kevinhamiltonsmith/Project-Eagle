@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/stripe/stripe-ruby
-  revision: 2dbc700fc35c9f6191e274febcd283223fce7d9a
+  revision: 1fbce5288cef350cc760c64b4bc4d19b22db76a4
   specs:
     stripe (1.8.3)
       multi_json (>= 1.0.4, < 2)

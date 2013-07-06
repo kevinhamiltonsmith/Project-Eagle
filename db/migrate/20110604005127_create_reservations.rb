@@ -10,6 +10,7 @@ class CreateReservations < ActiveRecord::Migration
       t.string   :confirmation_code
       t.integer  :status_code, :default => 1
       t.string   :total
+      t.string   :paid
       t.timestamps
     end
   end
