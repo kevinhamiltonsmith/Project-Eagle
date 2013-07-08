@@ -1,7 +1,4 @@
 class ChargesController < ApplicationController
-  def new
-    puts "*"*100
-  end
 
   def create
     begin
