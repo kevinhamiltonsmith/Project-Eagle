@@ -107,11 +107,7 @@ class MobileController < ApplicationController
 
     reservation = Reservation.find(:all, :conditions => { :id => params[:view] })
 
-    if reservation[0].paid == "p"
-      @due = "paid"
-    else
-      @due = "$#{reservation[0].total}.00"
-    end
+    @due = (reservation[0].paid == "p" ? "paid" : "$#{reservation[0].total}.00")
   end
   
   def time
@@ -122,8 +118,6 @@ class MobileController < ApplicationController
   end
 
   def charges
-        puts "-------------------------CHARGES-------------------------" 
-
     @app.user
   end
   
