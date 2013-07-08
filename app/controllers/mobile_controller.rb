@@ -100,14 +100,14 @@ class MobileController < ApplicationController
 
     reservations = Reservation.find(:all, :conditions => {
       :date => past_date..future_date,
-      :paid => "p"
+      :paid => "1"
     })
     
     @render_reservation = reservations.length
 
     reservation = Reservation.find(:all, :conditions => { :id => params[:view] })
 
-    @due = (reservation[0].paid == "p" ? "paid" : "$#{reservation[0].total}.00")
+    @due = (reservation[0].paid == 1 ? "paid" : "$#{reservation[0].total}.00")
   end
   
   def time
