@@ -9,7 +9,8 @@ class ChargesController < ApplicationController
       Stripe.api_key = 'sk_test_WJKjg9zfVpCrB5vTryRfb9Jf'
 
       @reservation_id = params[:resId]
-      @amount = params[:amount] # DON'T TRUST
+      @reservation = Reservation.find_by_id(@reservation_id)
+      total = @reservation.total + '00'
 
       customer = Stripe::Customer.create(
         :email => params[:email],
@@ -18,12 +19,11 @@ class ChargesController < ApplicationController
 
       charge = Stripe::Charge.create(
         :customer    => customer.id,
-        :amount      => @amount,
+        :amount      => total,
         :description => 'Rails Stripe customer',
         :currency    => 'usd'
       )
 
-      @reservation = Reservation.find_by_id(@reservation_id)
       if(!@reservation.blank?)
         @reservation.paid = 'p'
         @reservation.save

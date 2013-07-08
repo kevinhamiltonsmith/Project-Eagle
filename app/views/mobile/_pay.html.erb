@@ -8,10 +8,9 @@
 
     var token = function(res){
       var $input = $('<input type=hidden name=stripeToken />').val(res.id);
-      var $input2 = $('<input type=hidden name=amount />').val(<%= @app.reservation.total %>00);
-      var $input3 = $('<input type=hidden name=email />').val('<%= @app.user.email %>');
-      var $input4 = $('<input type=hidden name=resId />').val(<%= @app.reservation.id %>);
-      $('form').append($input).append($input2).append($input3).append($input4).submit();
+      var $input2 = $('<input type=hidden name=email />').val('<%= @app.user.email %>');
+      var $input3 = $('<input type=hidden name=resId />').val(<%= @app.reservation.id %>);
+      $('form').append($input).append($input2).append($input3).submit();
     };
 
     StripeCheckout.open({
