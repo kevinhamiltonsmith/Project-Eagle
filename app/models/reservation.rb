@@ -57,6 +57,7 @@ class Reservation < ActiveRecord::Base
   # Validates users, creates a reservation record in db, links it with Customer (Customer is the end-user)
   # If successfully created Reservation record, makes the book tee time call to the API for the course            
   
+
   def self.book_tee_time(user, course_id, golfers, time, date, total)
     reservation_info = {:course_id=>course_id, :golfers=>golfers, :time=>time, :date=>date, :total=>total, :booking_type=>"PressTee"}
     puts "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
