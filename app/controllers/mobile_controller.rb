@@ -100,7 +100,7 @@ class MobileController < ApplicationController
 
     reservations = Reservation.find(:all, :conditions => {
       :date => past_date..future_date,
-      :paid => "1"
+      :paid => 1
     })
     
     @render_reservation = reservations.length

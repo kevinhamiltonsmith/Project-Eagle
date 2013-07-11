@@ -22,7 +22,7 @@ class ChargesController < ApplicationController
       )
 
       if(!@reservation.blank?)
-        @reservation.paid = '1'
+        @reservation.paid = 1
         @reservation.save
       end
 

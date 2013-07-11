@@ -31,7 +31,7 @@
       <%=
       # "@render_reservation < 1"; change number from 1 to n+1, where n is he number of reservations per week you would like to permit plus one in the code below
       
-      render :partial => "pay", :locals => { :app => @app } if (@app.reservation.paid != "1" && @render_reservation < 1 && @app.reservation.total != 0) 
+      render :partial => "pay", :locals => { :app => @app } if (@app.reservation.paid != 1 && @render_reservation < 1 && @app.reservation.total != 0) 
       %>
 
       <center><a href="javascript:cancelTime('<%= @code %>');" class='cancel_button' style='margin-top:10px;border-radius:6px;'>Cancel Reservation</a></center>
